@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计时器</title>
+	<link rel="stylesheet" type="text/css" href="reset.css">
+	<style type="text/css">
+	body {
+		text-align: center;
+	}
+	div{ 
+		width: 100px;
+		height: 100px;
+		background: #99f;
+		border-radius: 1000px;
+	}
+	</style>
+</head>
+<body>
+	<input type="button" value="动画开始" id="btn" />
+	<input type="button" value="动画暂停" id="btn2" />
+	<div id="box"></div>
+</body>
+<script type="text/javascript">
+	// var i = 0;
+	// setTimeout(b,1000);
+	// function b(){
+	// 	setTimeout(b,1000);
+	// 	a();
+	// }
+	// function a(){
+	// 	alert(i++);
+	// }
+	//setTimeout模拟setInterval方法一
+	var i = 0,
+	u = true,
+	x = document.getElementById("box"),
+	btn = document.getElementById("btn"),
+	btn2 = document.getElementById("btn2"),
+	time = null;
+
+	btn.onclick = function (){
+		setTimeout(a,10);
+	}
+	btn2.onclick = function (){
+		clearTimeout(time);
+	}
+	function a(){
+		clearTimeout(time);
+		if (u) {
+			if (i < 300) {
+				i++;
+			}else {
+				u = false;
+			};
+		}else{
+			if (i > 0) {
+				i--;
+			}else {
+				u = true;
+			};
+		};
+		x.style.marginLeft = i + "px";
+		x.style.marginTop = i + "px";
+		x.style.width = i + "px";
+		x.style.height = i + "px";
+		time = setTimeout(a,10);
+	}
+	//setTimeout模拟setInterval方法二
+
+</script>
+</html>
