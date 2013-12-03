@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>计时器</title>
+	<style type="text/css">
+
+	</style>
+</head>
+<body>
+	<form id="fm">
+		<fieldset>
+			<input type="button" value="开始计时" />
+			<input type="button" value="开始结束" />
+			<input type="button" value="重置" />
+		</fieldset>
+	</form>
+	<p id="text">
+		<span>00分</span>
+		<span>:</span>
+		<span>00秒</span>
+		<span>:</span>
+		<span>00毫秒</span>
+	</p>
+</body>
+<script type="text/javascript">
+	var btns = document.getElementById("fm").getElementsByTagName("input"),
+		time = null,
+		text = document.getElementById("text"),
+		spans = text.getElementsByTagName("span"),
+		haomiao = 1,
+		fen = 0,
+		miao = 0;
+	//	声明变量
+	btns[0].onclick = function (){
+		time = setTimeout(add,10);
+	} 
+	btns[1].onclick = function (){
+		clearTimeout(time);
+	}
+	btns[2].onclick = function (){
+		fen = 0,
+		miao = 0,
+		haomiao = 0,
+		clock();
+	}
+	//	分别绑定事件
+	function add(){
+		clearTimeout(time);
+		haomiao++;
+		clock();
+		if (haomiao == 99) {
+			miao++;
+			haomiao = 0;
+		}
+		if (miao == 60) {
+			fen++;
+			miao = 0;
+		}
+		time = setTimeout(add,10);
+	}
+	//	主功能函数
+	function clock(){
+		(haomiao < 10) ? spans[4].innerHTML = "0" + haomiao + "毫秒" : spans[4].innerHTML = haomiao + "毫秒";
+		miao < 10 ? spans[2].innerHTML = "0" + miao + "秒" : spans[2].innerHTML = miao + "秒";
+		fen < 10 ? spans[0].innerHTML = "0" + fen + "分" : spans[0].innerHTML = fen + "分";
+	}
+</script>
+</html>

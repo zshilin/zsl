@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>
+	<style type="text/css">
+	.all {
+		width: 200px;
+		height: 600px;
+		margin: 10px auto; 
+		position: relative;
+	}
+	.con {
+		width: 200px;
+		height: 600px;
+		overflow: hidden;
+		border-radius: 50px;
+	}
+	.pic {
+		width: 200px;
+		height: 2400px;
+	}
+	.pic img {
+		width: 200px;
+		height: 300px;
+		float: left;
+	}
+	p {
+		position: absolute;
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+		border-radius: 30px;
+		background: #99f;
+		text-align: center;
+		line-height: 30px;
+		color: #fff;
+		left: 0;
+		top: 0;
+	}
+	.btn_right {
+		left: 170px;
+	}
+	</style>
+</head>
+<body>
+	<div class="all" id="all">
+		<p>上</p>
+		<div class="con" id="con">
+			<div class="pic" id="pic">
+				<img src="imgs/d.jpg" alt="纳尼" title="纳尼" />
+				<img src="imgs/c.jpg" alt="纳尼" title="纳尼" />
+				<img src="imgs/b.jpg" alt="纳尼" title="纳尼" />
+				<img src="imgs/a.jpg" alt="纳尼" title="纳尼" />
+			</div>
+		</div>
+		<p class="btn_right">下</p>
+	</div>
+</body>
+<script type="text/javascript">
+	var con = document.getElementById("con"),
+		pic = document.getElementById("pic"),
+		btns = document.getElementById("all").getElementsByTagName("p"),
+		time = null,
+		v = 0;
+	pic.innerHTML += pic.innerHTML;
+	clock();
+	function move(i){
+		if(i == 1){
+			con.scrollTop++;
+			if(con.scrollTop == pic.clientHeight/2){
+				con.scrollTop = 0;
+			}
+			if(con.scrollTop % 300 == 0){
+				clearInterval(time);
+				setTimeout(clock,1000);
+			}
+			con.onmouseover = function () {
+				clearTimeout(time);
+			}
+			con.onmouseout = function () {
+				clock();
+			}
+		}
+		else{
+			con.scrollTop--;
+			if (con.scrollTop == 0){
+				con.scrollTop = pic.clientHeight/2;
+			}
+			if (con.scrollTop % 300 == 0){
+				clearInterval(time);
+				time = setTimeout(clock2,1000);
+			}
+			con.onmouseover = function () {
+				clearTimeout(time);
+			}
+			con.onmouseout = function () {
+				clock2();
+			}
+		}
+	}
+	btns[0].onclick=function () {
+		clearInterval(time);
+		clock();
+	}
+	btns[1].onclick=function () {
+		clearInterval(time);
+		clock2();		
+	}
+	function clock(){
+		if(time){
+			clearInterval(time);
+		}
+		time=setInterval("move(1)",10);	
+	}
+	function clock2(){
+		if(time){
+			clearInterval(time);
+		}
+		time=setInterval("move(0)",10);	
+	}	
+</script>
+</html>
