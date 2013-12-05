@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>碰壁反弹</title>
+	<style type="text/css">
+	.box {
+		width: 500px;
+		height: 500px;
+		margin: 10px auto;
+		border: 5px solid #99f;
+		position: relative;
+	}
+	.con {
+		width: 50px;
+		height: 50px;
+		background: #99f;
+		border-radius: 100px;
+		position: absolute;
+	}
+	input {
+		float: left;
+		width: 100px;
+		height: 50px;
+		background: #99e;
+		margin: 10px;
+	}
+	</style>
+</head>
+<body>
+	<input type="button" value="开始运动" id="btn" />
+	<input type="button" value="停止运动" id="btn2" />
+	<div class="box" id="box">
+		<div class="con" id="con">
+			&nbsp;
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var box = document.getElementById("box"),
+		con = document.getElementById("con"),
+		btn = document.getElementById("btn"),
+		btn2 = document.getElementById("btn2"),
+		speed = 1,
+		speed2 = 1,
+		time = null,
+		posX = 10,
+		posY = 200,
+		end = box.clientWidth - con.offsetWidth,
+		end2 = box.clientHeight - con.offsetHeight;
+
+	time = setInterval(move,17);
+
+	function move(){
+		posX += speed;
+		posY += speed2;
+		if (speed > 0 && posX >= end) {
+			speed = -1;
+		}
+		if (speed < 0 && posX <= 0) {
+			speed = 1;
+		}
+		if (speed > 0 && posY >= end2) {
+			speed2 = -1;
+		}
+		if (speed < 0 && posY <= 0) {
+			speed2 = 1;
+		};
+		con.style.left = posX + "px";
+		con.style.top = posY + "px";
+	}
+	btn.onclick = function (){
+		clearInterval(time);
+		time = setInterval(move,17);
+	}
+	btn2.onclick = function (){
+		clearInterval(time);
+	}
+</script>
+</html>

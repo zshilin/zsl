@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动方法二</title>
+	<style type="text/css">
+	.all {
+		width: 200px;
+		height: 600px;
+		margin: 10px auto; 
+		position: relative;
+	}
+	.con {
+		width: 200px;
+		height: 600px;
+		overflow: hidden;
+		border-radius: 50px;
+	}
+	.pic {
+		width: 200px;
+		height: 2400px;
+	}
+	.pic img {
+		width: 200px;
+		height: 300px;
+		float: left;
+	}
+	p {
+		position: absolute;
+		cursor: pointer;
+		width: 30px;
+		height: 30px;
+		border-radius: 30px;
+		background: #99f;
+		text-align: center;
+		line-height: 30px;
+		color: #fff;
+		left: 0;
+		top: 0;
+	}
+	.btn_right {
+		left: 170px;
+	}
+	</style>
+</head>
+<body>
+	<div class="all" id="all">
+		<p>上</p>
+		<div class="con" id="con">
+			<div class="pic" id="pic">
+				<img src="imgs/d.jpg" alt="纳尼" title="纳尼" />
+				<img src="imgs/c.jpg" alt="纳尼" title="纳尼" />
+				<img src="imgs/b.jpg" alt="纳尼" title="纳尼" />
+				<img src="imgs/a.jpg" alt="纳尼" title="纳尼" />
+			</div>
+		</div>
+		<p class="btn_right">下</p>
+	</div>
+</body>
+<script type="text/javascript">
+	var con = document.getElementById("con"),
+		pic = document.getElementById("pic"),
+		btns = document.getElementById("all").getElementsByTagName("p"),
+		time = null,
+		time2 = null,				//	两个计时器
+		v = 0,						//	scrollTop值
+		end = pic.clientHeight/2,	//	可滚动的距离
+		speed = 2;					//	速度变量
+
+	pic.innerHTML += pic.innerHTML;
+
+	window.onload = add;
+	function add(){
+		time = setTimeout(move,17);
+	}
+
+	//**************主功能函数****************
+
+	function move(){
+		v += speed;
+		time1 = setTimeout(add,5);
+
+		if(v >= end && speed > 0) {
+			v -= end;
+		}
+		if (v <= 0 && speed < 0) {
+			v = end;
+		}
+		if(v % 300 == 0) {
+			clearTimeout(time1);
+			time = setTimeout(move,1000);
+		}
+		con.scrollTop = v;
+	}
+
+	//**************主功能函数结束****************
+	
+	con.onmouseover = function () {
+		clearTimeout(time1);
+		clearTimeout(time);
+	}
+	con.onmouseout = function () {
+		clearTimeout(time);
+		time = setTimeout(move,17);
+	}
+	btns[0].onclick=function () {
+		speed = 2;
+	}
+	btns[1].onclick=function () {
+		speed = -2;		
+	}
+</script>
+</html>
