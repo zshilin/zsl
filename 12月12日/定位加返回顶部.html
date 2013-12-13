@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>定位返回顶部</title>
+	<style type="text/css">
+	* {margin: 0;padding: 0;}
+	body {position: relative;background: url(about:blank); background-attachment: fixed}
+	.con {width: 100px;height: 5000px;background: red;float: left;border-radius: 5000px;}
+	input {width: 100px;height: 200px;border-radius: 200px;position: fixed;right: 0;top: 0;_position:absolute;_top: expression(documentElement.scrollTop + "px");}
+	</style>
+</head>
+<body>
+	<div class="con"></div>
+	<input type="button" value="返回顶部" id="btn" />
+</body>
+<script type="text/javascript">
+	var btn = document.getElementById("btn");
+	var tw = function(t,b,c,d){
+		return c * Math.sqrt(1 - (t=t/d-1)*t) + b;
+	}
+	btn.onclick = function (){
+		var timer = setInterval(function () { 
+			var top_top = document.body.scrollTop || document.documentElement.scrollTop;
+			var t = 0,
+				b = top_top,
+				c = 0 - top_top,
+				d = 50;
+			t++;
+			tt = tw(t,b,c,d);
+			tt = (tt < 300) ? 0 : tt;
+			(top_top > 0) ? window.scrollTo(tt, tt) : clearInterval(timer);
+		}, 10)
+	}
+</script>
+</html>

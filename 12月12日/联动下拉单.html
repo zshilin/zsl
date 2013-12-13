@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>联动下拉单</title>
+</head>
+<body>
+	<form action="somepage.asp"name="theForm">
+		<select name="province" onchange="getCity()" id="pro">
+			<option value="0">请选择</option>
+			<option value="请选择你的性别">请选择你的性别</option>
+			<option value="请选择你的年龄段">请选择你的年龄段</option>
+			<option value="居住地">居住地</option>
+			<option value="经济状况">经济状况</option>
+			<option value="自我感觉">自我感觉</option>
+		</select>
+		<select name="city" id="city">
+		  	<option value="0">请继续选择</option>
+		</select>
+		<select name="sCity" id="sCity">
+			<option value="0">请最后选择</option>
+		</select>
+	</form>
+</body>
+ <script>
+	var city = [
+	 	["Gay","杜蕾丝","中性","人妖","女汉子"],
+	 	["1-0岁","已挂掉","未出生"],
+	 	["WC","酒瓶里","下水道","女友家"],
+	 	["IT男","穷屌丝","土豪","高富帅"],
+	 	["老男人","闷骚","明骚","贱"]
+	];
+	function getCity(){
+
+	 	var pro = document.getElementById("pro"),
+	 		sltCity = document.getElementById("city");
+	 	var proCity = city[pro.selectedIndex-1];
+
+	 	//	selectedIndex 属性可设置或返回下拉列表中被选选项的索引号。
+
+	 	sltCity.length = 1;
+
+	 	for(var i = 0;i < proCity.length;i++){
+	 		sltCity[i + 1] = new Option(proCity[i],proCity[i]);
+	 	}
+
+
+	 	//	new Option 动态生成选择项目
+	 	
+	 	/*
+	 	 *	new option(text,value,defaultSelected,selected)
+	 	 *	text:字符串，指定option对象的text属性(即<option></option>之间的文字)
+		 *	value:字符串，指定option对象的value属性
+	 	 *	defaultSelected:布尔值，指定option对象的defaultSelected属性
+	 	 *	selected:布尔值，指定option对象的selected属性
+	 	 *
+	 	 */
+		
+			
+			
+			
+			
+	}
+ </script>
+</html>

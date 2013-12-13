@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间联动</title>
+</head>
+<body>
+    <select id="year">
+        <option>
+            请选择年份
+        </option>
+    </select>
+    <select id="month">
+        <option>
+            请选择月份
+        </option>
+    </select>
+    <select id="day">
+        <option>
+            请选择日
+        </option>
+    </select>
+</body>
+<script type="text/javascript">
+    var y = document.getElementById("year"),
+        m = document.getElementById("month"),
+        d = document.getElementById("day"),
+        year = new Date().getFullYear();
+    for (var i = year; i >= 1990; i--) {
+        y.options[year + 1 - i] = new Option(i,i);
+    };
+    for (var i = 1; i <= 12; i++) {
+        m.options[i] = new Option(i,i);
+    };
+    var day = function (){
+        d.length = 1;
+        if (y.value == "" || m.value == "") {
+            return
+        }else {
+            var arr = [31,28,31,30,31,30,31,31,30,31,30,31];
+            if ((y.value % 4 == 0 && y.value % 100 != 0) 
+                || 
+                (y.value % 400 == 0)) {
+                arr[1]++;
+            }
+            for (var i = 1; i < arr[m.value - 1]; i++) {
+                d.options[i] = new Option(i + 1,i + 1);
+            };
+        }
+    }
+    y.onchange = function (){
+        day();
+    }
+    m.onchange = function (){
+        day();
+    }
+</script>
+</html>
+   
+
