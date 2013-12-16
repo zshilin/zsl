@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>百条新闻随机五条</title>
+</head>
+<body>
+	<div id="box"></div>
+</body>
+<script type="text/javascript">
+	var box = document.getElementById("box"),
+		navArr = [],
+		navNum = 0;
+
+	for (var i = 0; i < 100; i++) {
+		navArr[i] = "第" + (i + 1) + "几条新闻";
+	};
+
+	for (var i = 0; i < 5; i++) {
+		navNum = Math.floor(Math.random() * 100 + 1);
+		box.innerHTML += navArr[navNum - 1] + "</br>";
+	};
+</script>
+</html>

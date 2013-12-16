@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>新年倒计时</title>
+	<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	.wrapper {
+		width: 410px;
+		height: 110px;
+		opacity: 0.5;
+		background: #fede4f 50% top no-repeat;
+		-moz-opacity: 0.5;
+		-khtml-opacity: 0.5;
+		filter: alpha(Opacity = 50);
+		overflow: hidden;
+		padding: 20px;
+	}
+	.wrapper h1 {
+		margin-bottom: 20px;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrapper" id="wrapper">
+		<h1>距离新年还有:</h1>
+		<span></span>
+		<span>年</span>
+		<span></span>
+		<span>月</span>
+		<span></span>
+		<span>日</span>
+		<span></span>
+		<span>小时</span>
+		<span></span>
+		<span>分</span>
+		<span></span>
+		<span>秒</span>
+	</div>
+</body>
+<script type="text/javascript">
+	var wrapper = document.getElementById("wrapper"),
+		spans = wrapper.getElementsByTagName("span"),
+		endT = new Date(2014,0,30),
+		endTime = endT.getTime(),
+		time = null;
+
+	window.onload = clock;
+
+	time = setInterval(clock,1000)
+
+	function clock(){
+		var startT = new Date(),
+			startTime = startT.getTime(),
+			fat = endT - startT;
+
+		spans[0].innerHTML=Math.floor(fat / (1000*60*60*24*30*12));
+		spans[2].innerHTML=Math.floor(fat % (1000*60*60*24*30*12) / (1000*60*60*24*30));
+		spans[4].innerHTML=Math.floor(fat % (1000*60*60*24*30) / (1000*60*60*24));
+		spans[6].innerHTML=Math.floor(fat % (1000*60*60*24) / (1000*60*60));
+		spans[8].innerHTML=Math.floor(fat % (1000*60*60) / (1000*60));
+		spans[10].innerHTML=Math.floor(fat % (1000*60) / 1000);
+	}
+</script>
+</html>

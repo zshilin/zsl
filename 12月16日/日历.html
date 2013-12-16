@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>日历</title>
+	<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+	.cal {
+		width: 400px;
+		height: 400px;
+		background: url(cal.png);
+		margin: 0 auto;
+	}
+	.header {
+		width: 370px;
+		height: 50px;
+		text-align: center;
+		background: #65c2c0;
+		border-radius: 3px 3px 0 0;
+		box-shadow: 0px 1px 2px rgba(0,0,0,0.5), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.7), inset 0 -10px 20px rgba(0,0,0,0.2), inset 0 40px 40px rgba(255,255,255,0.3);
+		overflow: hidden;
+		padding: 15px;
+	}
+	.header ul {
+		overflow: hidden;
+	}
+	.header li {
+		float: left;
+		height: 50px;
+		text-align: center;
+		line-height: 50px;
+		font-size: 42px;
+		color: #fff;
+		padding-left: 1px;
+		padding-right: 1px;
+		display: inline;
+	}
+	.header .btn {
+		width: 30px;
+		cursor: pointer;
+		font-weight: bolder;
+		color: #65c2c0;
+		background-color: #fff;
+		border-radius: 50px;
+	}
+	.header .rightbtn {
+		float: right;
+	}
+	.con {
+		width: 360px;
+		height: 280px;
+		padding: 20px;
+	}
+	.days {
+		width: 350px;
+		height: 280px;
+		background: #65c2c0 50% top no-repeat;
+		-moz-opacity: 0.5;
+		-khtml-opacity: 0.5;
+		filter: alpha(Opacity = 50);
+		opacity: 0.5;
+		padding-left: 10px;
+	}
+	.days li {
+		margin: 3px;
+		background-color: #fff;
+		float: left;
+		width: 50px;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		color: #000;
+	}
+	</style>
+</head>
+<body>
+	<div class="cal">
+		<div class="header">
+			<ul id="date">
+				<li class="btn"><</li>
+				<li>1991</li>
+				<li>年</li>
+				<li>10</li>
+				<li>月</li>
+				<li>1</li>
+				<li>日</li>
+				<li class="btn rightbtn">></li>
+			</ul>
+		</div>
+		<div class="con">
+			<ul class="days" id="days">
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	var date = document.getElementById("date"),
+		dates = date.getElementsByTagName("li"),
+		days = document.getElementById("days"),
+		t = new Date(),
+		y = t.getFullYear(),
+		m = t.getMonth(),
+		d = t.getDate();
+
+	conntDay(y,m);
+
+	window.onload = add;
+
+	dates[0].onclick = function (){
+		days.innerHTML = null;
+		m--;
+		if (m < 0) {
+			m = 11;
+			y --;
+		};
+		add();
+		conntDay(y,m);
+	
+	}
+	dates[7].onclick = function (){
+		days.innerHTML = null;
+		m++;
+		if (m > 11) {
+			m = 0;
+			y ++;
+		};
+		add();
+		conntDay(y,m);
+	}
+
+	function add (){
+		dates[1].innerHTML = y;
+		dates[3].innerHTML = m + 1;
+		dates[5].innerHTML = d;
+	}
+
+	function conntDay(y,m){
+		var time = new Date(y,m+1);
+		time.setDate(0);
+		var mon = time.getDate();
+		setMonth(mon);
+	}
+
+	function setMonth(mon){
+		for (var i = 1; i <= mon; i++) {
+			days.innerHTML += "<li>" + i + "</li>";
+		};
+	}
+
+</script>
+</html>
