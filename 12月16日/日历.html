@@ -8,6 +8,7 @@
 		margin: 0;
 		padding: 0;
 		list-style-type: none;
+		font-family: Arial, Verdana, 宋体;
 	}
 	.cal {
 		width: 400px;
@@ -15,14 +16,16 @@
 		background: url(cal.png);
 		margin: 0 auto;
 	}
-	.header {
-		width: 370px;
-		height: 50px;
+	.header,.day li {
 		text-align: center;
 		background: #65c2c0;
 		border-radius: 3px 3px 0 0;
 		box-shadow: 0px 1px 2px rgba(0,0,0,0.5), inset 0 -1px 0 rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.7), inset 0 -10px 20px rgba(0,0,0,0.2), inset 0 40px 40px rgba(255,255,255,0.3);
 		overflow: hidden;
+	}
+	.header {
+		width: 370px;
+		height: 50px;
 		padding: 15px;
 	}
 	.header ul {
@@ -33,7 +36,7 @@
 		height: 50px;
 		text-align: center;
 		line-height: 50px;
-		font-size: 42px;
+		font-size: 32px;
 		color: #fff;
 		padding-left: 1px;
 		padding-right: 1px;
@@ -46,14 +49,30 @@
 		color: #65c2c0;
 		background-color: #fff;
 		border-radius: 50px;
+		margin-right: 28px;
 	}
 	.header .rightbtn {
 		float: right;
+		margin-right: 0;
 	}
 	.con {
 		width: 360px;
-		height: 280px;
-		padding: 20px;
+		height: 320px;
+		padding: 0 20px;
+	}
+	.day {
+		width: 350px;
+		height: 30px;
+		overflow: hidden;
+		padding-left: 6px;
+	}
+	.day li {
+		width: 47px;
+		height: 30px;
+		float: left;
+		margin-right: 3px;
+		line-height: 30px;
+		color: #fff;
 	}
 	.days {
 		width: 350px;
@@ -69,11 +88,15 @@
 		margin: 3px;
 		background-color: #fff;
 		float: left;
-		width: 50px;
+		width: 43px;
 		height: 40px;
 		text-align: center;
 		line-height: 40px;
 		color: #000;
+		cursor: pointer;
+	}
+	.days .none {
+		background: none;
 	}
 	</style>
 </head>
@@ -92,6 +115,15 @@
 			</ul>
 		</div>
 		<div class="con">
+			<ul class="day">
+				<li>Sun</li>
+				<li>Mon</li>
+				<li>Tue</li>
+				<li>Wed</li>
+				<li>Thu</li>
+				<li>Fri</li>
+				<li>Sat</li>
+			</ul>
 			<ul class="days" id="days">
 			</ul>
 		</div>
@@ -101,15 +133,16 @@
 	var date = document.getElementById("date"),
 		dates = date.getElementsByTagName("li"),
 		days = document.getElementById("days"),
+		lis = days.getElementsByTagName("li"),
 		t = new Date(),
 		y = t.getFullYear(),
 		m = t.getMonth(),
 		d = t.getDate();
-
+	
 	conntDay(y,m);
 
 	window.onload = add;
-
+	//	左右点击事件
 	dates[0].onclick = function (){
 		days.innerHTML = null;
 		m--;
@@ -119,7 +152,6 @@
 		};
 		add();
 		conntDay(y,m);
-	
 	}
 	dates[7].onclick = function (){
 		days.innerHTML = null;
@@ -131,21 +163,30 @@
 		add();
 		conntDay(y,m);
 	}
-
+	//	日期切换赋值
 	function add (){
 		dates[1].innerHTML = y;
 		dates[3].innerHTML = m + 1;
 		dates[5].innerHTML = d;
 	}
-
+	//	获取当前月份的总天数和本月第一天是周几
 	function conntDay(y,m){
 		var time = new Date(y,m+1);
 		time.setDate(0);
 		var mon = time.getDate();
-		setMonth(mon);
-	}
 
-	function setMonth(mon){
+		var time2 = new Date(y,m);
+		var day = time2.getDay();
+		setMonth(mon,day);
+	}
+	//	动态添加li
+	function setMonth(mon,day){
+		if (day == 0) {
+			day = 7;
+		}
+		for (var i = 0; i < day; i++) {
+			days.innerHTML += "<li class='none'></li>"
+		};
 		for (var i = 1; i <= mon; i++) {
 			days.innerHTML += "<li>" + i + "</li>";
 		};
