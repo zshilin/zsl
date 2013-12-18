@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>新浪微博</title>
+	<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+		font-family: Arial, Verdana, 宋体;
+	}
+	body {
+		background: url(http://pic.5442.com/2012/1213/04/04.jpg);
+	}
+	body,div,span,textarea,btnut,dl,dt,dd,p {
+		margin:0;
+		padding:0;
+	}
+	.wrap {
+		margin:0 auto;
+		width:600px;
+		border:1px solid rgb(217,217,217);
+		background: #000 80% top no-repeat;
+		-moz-opacity: 0.8;
+		-khtml-opacity: 0.8;
+		filter: alpha(Opacity = 80);
+		opacity: 0.8;
+	}
+	.header {
+		padding:60px 30px 0 36px;
+		height:160px;
+
+	}
+	a {
+		cursor:hand;
+		cursor:pointer;
+		color: red;
+	}
+	textarea {
+		width:533px;
+		height:106px;
+		resize:none;
+		overflow:hidden;
+	}
+	input {
+		float:right;
+		margin-top:5px;
+		width:82px;
+		height:30px;
+		font-size:14px;
+		outline:none;
+	}
+	.bebtn {
+		border:1px solid #EB6767;
+		background-image: -webkit-linear-gradient(top, rgba(249,89,89,1) 0%,rgba(231,67,67,1) 100%);
+		color:#fff;
+		cursor: pointer;
+	}
+	.nonebtn {
+		border:1px solid #c6c6c6;
+		background:#f2f2f2;
+		color:#ccc;
+	}
+	.content {
+		margin:0 auto;
+		width:553px;
+		height:500px;
+		overflow:auto;
+	}
+	.userDl {
+		margin-top:10px;
+		padding-bottom:7px;
+		border:1px dotted #e6e6e6;
+		overflow:hidden;
+		height:auto;
+		-webkit-animation:animations 2s ease-out;
+		animation:animations 2s ease-out;
+	}
+	@-webkit-keyframes animations {
+		0%{height:0;}
+		100%{height:60px;}
+	}
+	.userDt {
+		float:left;
+	}
+	img {
+		width:50px;
+		height:50px;
+	}
+	.userDd {
+		float:left;
+		margin-left:13px;
+		width:459px;
+		min-height:80px;
+		_height:80px; 
+		color: #fff;
+		position: relative;
+	}
+	.userName {
+		font-size:18px;
+		font-weight:bold;
+	}
+	.userP {
+		font-size:14px;
+		line-height:21px;
+		margin-top:5px;
+	}
+	.userbtn {
+		position: absolute;
+		top: 0;
+		right: 0;
+		font-size:12px;
+		color:#eb6478;
+	}
+	.userbtn:hover {
+		text-decoration:underline;
+	}
+	.userTime {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<div class="header">
+			<textarea id="textarea"></textarea>
+			<input id="btn" class="nonebtn" type="button" value="发布" name=""/>
+		</div>
+		<div id="context" class="context">
+		</div>
+	</div>
+</body>
+<script>
+	window.onload = function(){
+		var textarea = document.getElementById("textarea");
+		var btn = document.getElementById("btn");
+		var context = document.getElementById("context");
+
+		//	检测文本框中是否有内容输入
+		function obj(){
+			(textarea.value != "") ? btn.className = "bebtn" : btn.className = "nonebtn";
+			setTimeout(obj);
+		}
+		obj();
+		//	省点代码
+		function $(prop){
+			return document.createElement(prop);
+		}
+
+		btn.onclick = function (){
+			var time = new Date();
+			var text = textarea.value;
+			if (text == "") {
+				alert("内容不能为空");
+			}else {
+				//	先清空输入框
+				text = "";
+				//	创建一个dl标签并插入
+				var userDl = $("dl");
+				userDl.setAttribute("class","userDl");
+				var dls = context.getElementsByTagName("dl");
+				(dls.length >= 1) ? context.insertBefore(userDl,context.children[1]) : context.appendChild(userDl);
+				//	创建dt放入dl
+				var userDt = $("dt");
+				userDt.setAttribute("class","userDt");
+				userDl.appendChild(userDt);
+				//	创建img头像放入dt
+				var userImg = $("img");
+				userImg.src = "1.jpg";
+				userDt.appendChild(userImg);
+				//	创建dd放入dl
+				var userDd = $("dd");
+				userDd.setAttribute("class","userDd");
+				userDl.appendChild(userDd);
+				//	创建用户名
+				var userName = $("a");
+				userName.setAttribute("class","userName");
+				var user = document.createTextNode("NEHC院长");
+				// 	userName.createTextNode("NEHC院长");
+				userName.appendChild(user);
+				userDd.appendChild(userName);
+				//	创建p标签储存发布信息
+				var userP = $("p");
+				userP.setAttribute("class","userP");
+				var userPtext = document.createTextNode(textarea.value);
+				userP.appendChild(userPtext);
+				userDd.appendChild(userP);
+				//	创建span标签储存时间
+				var userTime = $("span");
+				userTime.setAttribute("class","userTime");
+				var userT = document.createTextNode(time.toLocaleString());
+				userTime.appendChild(userT);
+				userDd.appendChild(userTime);
+				//	创建删除按钮
+				var userbtn = $("a");
+				var usertt = document.createTextNode("删除");
+				userbtn.className = "userbtn";
+				userbtn.appendChild(usertt);
+				userDd.appendChild(userbtn);
+				//	删除操作
+				userbtn.onclick = function(){
+					context.removeChild(this.parentNode.parentNode);
+				}
+			}
+		}
+	}
+	</script>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DOM</title>
+</head>
+<body>
+	<div id="box">
+		<span>1</span>
+		<span>1</span>
+		<span>1</span>
+		<span>1</span>
+		<em>1</em>
+				123
+		<strong>1</strong>>
+	</div>
+</body>
+<script type="text/javascript">
+	var box = document.getElementById("box");
+	var div = document.createElement("div");
+	document.body.appendChild(div);
+	div.getAttribute("id");
+	div.setAttribute("id","text");
+	div.parentNode.removeChild(div);
+	var img = new Image();
+	box.appendChild(img);
+	console.log(img.nodeType);
+	if (img.nodeType == 1) {
+		img.setAttribute("src","http://su.bdimg.com/static/superpage/img/logo_white.png");
+		box.insertBefore(img,box.children[3]);
+	};
+	var spans = document.querySelectorAll("#box span");
+	console.log(spans);
+	for (var i = 0; i < spans.length; i++) {
+		spans[i].style.color = "red";
+	};
+</script>
+</html>
